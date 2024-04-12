@@ -189,6 +189,17 @@ public class PayoutTable extends VBox {
 
 
     }
+//    public int getPayout(Hand hand, int wager) {
+//        int handRank = hand.getHandRank();
+//        System.out.println("Hand Rank: " + handRank);
+//        if (handRank <= 0 || handRank > payouts.length) {
+//            System.out.println("Invalid hand rank: " + handRank);
+//            return -wager;  // Or another appropriate error handling
+//        }
+//        int payout = wager * (payouts[handRank-1][0] / payouts[handRank-1][1]);
+//        return payout;
+//    }
+
 
     public int getPayout(Hand hand, int wager) {
         int payout = -wager;
@@ -226,6 +237,8 @@ public class PayoutTable extends VBox {
 
         return payout;
     }
+
+
 
 
     private void createLabels() {

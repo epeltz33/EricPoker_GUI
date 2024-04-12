@@ -48,4 +48,8 @@ public class Player {
     public String toString() {
         return "Player " + name + ", id: " + id + " has a bank of " + bank;
     }
+
+    public void updateBank(int winAmount) {
+        bank += winAmount;
+    }
 }

@@ -105,6 +105,7 @@ public class Poker {
         evaluateHand();
         playerArea.showCards();
         playerArea.showHandDescr();
+        endHand();
     }
 
     private void dealPlayer() {
@@ -115,7 +116,7 @@ public class Poker {
 
     private void evaluateHand() {
         Hand playerHand = player.getHand();
-        PokerSolver.evaluateHand(playerHand, playerHand.getHandString());
+        PokerSolver.evaluateHand(playerHand, playerHand.getHandString()); // Evaluate the hand using the PokerSolver
     }
 
     private void clearCards() {
@@ -127,6 +128,22 @@ public class Poker {
     }
 
     private void endHand() {
-        // For now, this method does nothing
+        // Get the current wager amount
+        int currentWager = wager.getWagerAmount();
+
+        // Calculate the payout
+        int payout = payoutTable.getPayout(player.getHand(), currentWager);
+
+        // Update the player's bank amount
+        player.updateBank(payout);
+
+        // Update the score board with win/loss amount
+        scoreBoard.setWinAmount(payout);
+
+        // Update the score board with the new bank amount
+        scoreBoard.updateBank();
+        System.out.println("Wager: " + currentWager + " Payout: " + payout + " Bank: " + player.getBank());
+
+
     }
 }

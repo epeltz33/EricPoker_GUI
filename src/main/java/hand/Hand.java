@@ -72,13 +72,7 @@ public class Hand {
         return gameResults(otherHand);
     }
 
-    public int compareHand(Hand otherHand, String game) {
-        //First evaluate each hand
-        evaluateHand(game);  //This hand object
-        otherHand.evaluateHand(game);
 
-        return gameResults(otherHand);
-    }
 
     private int gameResults(Hand otherHand) {
         int thisHandResult;
@@ -171,4 +165,8 @@ public class Hand {
         this.altCards = altCards;
     }
 
+    public Hand getHandValue() {
+        return this;
+
+    }
 }

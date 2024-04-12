@@ -116,4 +116,9 @@ public class ScoreBoard extends VBox {
         DecimalFormat formatter = new DecimalFormat("#,###");
         return formatter.format(number);
     }
+
+    public void resetWinAmount() {
+        winAmount.setText("0");
+
+    }
 }
