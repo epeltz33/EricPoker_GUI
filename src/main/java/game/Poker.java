@@ -144,6 +144,9 @@ public class Poker {
         scoreBoard.updateBank();
         System.out.println("Wager: " + currentWager + " Payout: " + payout + " Bank: " + player.getBank());
 
-
+        // Write player data to file
+        gameoutput.GameFile.writeCSVData("playerdata.txt", player, payout);
     }
+
+
 }

@@ -1,0 +1,2 @@
+Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
+9765467,FastFreddy,Jc 8s 9c 2s 2d ,[Ljava.lang.String;@7ba448aa,-200,2350
