@@ -146,6 +146,9 @@ public class Poker {
 
         // Write player data to file
         gameoutput.GameFile.writeCSVData("playerdata.txt", player, payout);
+
+        // Write player data to binary file
+        gameoutput.GameFile.writeBinaryData("playerdata.dat", player, payout);
     }
 
 

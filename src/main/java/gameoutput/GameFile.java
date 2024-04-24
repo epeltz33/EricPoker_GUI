@@ -1,9 +1,9 @@
 package gameoutput;
 
+
 import player.Player;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.io.*;
 
 public class GameFile {
     public static void writeCSVData(String filename, Player player, int winAmount) {
@@ -13,6 +13,20 @@ public class GameFile {
                     player.getHand().getHandDescr() + "," + winAmount + "," + player.getBank());
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
+    public static void writeBinaryData(String fileName, Player player, int winAmount) {
+        String filePath = "files/" + fileName;
+
+        try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(filePath, true))) {
+            outputStream.writeUTF(player.getId());
+            outputStream.writeUTF(player.getName());
+            outputStream.writeUTF(player.getHand().getHandDescr());
+            outputStream.writeInt(winAmount);
+            outputStream.writeInt(player.getBank());
+        } catch (IOException e) {
+            System.out.println("Error writing data");
         }
     }
 }

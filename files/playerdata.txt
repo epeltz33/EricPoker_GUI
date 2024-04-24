@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-9765467,FastFreddy,7s 6h As Qd 7h ,Pair 7s,-100,2550
+9765467,FastFreddy,Ts Jd 9d Qs 4c ,High Card Q,-200,3350
