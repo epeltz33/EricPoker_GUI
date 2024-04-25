@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-9765467,FastFreddy,Ts Jd 9d Qs 4c ,High Card Q,-200,3350
+0768311,Barney,2c 2h 2s 3h Tc ,Three of a Kind 2s,1200,1830

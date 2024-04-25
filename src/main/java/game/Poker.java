@@ -5,6 +5,9 @@ import gameobjects.GameColors;
 import gameobjects.PayoutTable;
 import gameobjects.ScoreBoard;
 import gameobjects.Wager;
+import gameoutput.GameData;
+import gameoutput.RandomPlayer;
+
 import hand.Hand;
 import helpers.PokerSolver;
 import javafx.geometry.Insets;
@@ -37,7 +40,7 @@ public class Poker {
     private GameColors gameColors;
 
     public Poker() {
-        player = new Player("9765467", "FastFreddy", 2650);
+        player = RandomPlayer.getPlayer();
         dealer = new Dealer(new Deck(52));
         playerArea = new PlayerArea(player, 5, "poker");
         payoutTable = new PayoutTable("drawpoker");
@@ -149,7 +152,10 @@ public class Poker {
 
         // Write player data to binary file
         gameoutput.GameFile.writeBinaryData("playerdata.dat", player, payout);
+
+        GameData gameData = new GameData();
+        gameData.updateBank(player);
+        gameData.insertResults(player, payout);
+        gameData.closeConnection();
     }
-
-
 }
