@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-2435768,JimBob,9s 5h Qc 3h As ,High Card A,800,0
+2435573,OneEyedJack,6h Qd Ah 8d 5c ,High Card A,-400,-1500
