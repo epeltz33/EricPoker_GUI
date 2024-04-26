@@ -4,6 +4,7 @@ package gameoutput;
 import java.sql.*;
 import player.Player;
 
+
 public class GameData {
     private Connection connection;
     Statement statement;
@@ -24,6 +25,7 @@ public class GameData {
         }
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     public void closeConnection() {
         try {
             if (connection != null) {
@@ -44,14 +46,19 @@ public class GameData {
     }
 
     public void insertResults(Player player, int amountWon) {
-        try {
-            String sql = STR."INSERT INTO game_results (game_id, player_id, hand_descr, amount_won, player_bank) VALUES(DEFAULT, '\{player.getId()}', '\{player.getHand().getHandDescr()}', \{amountWon}, \{player.getBank()})";
-            statement.executeUpdate(sql);
+        String sql = "INSERT INTO game_results (game_id, player_id, hand_descr, amount_won, player_bank) VALUES(DEFAULT, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, player.getId());
+            pstmt.setString(2, player.getHand().getHandDescr());
+            pstmt.setInt(3, amountWon);
+            pstmt.setInt(4, player.getBank());
+
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
     public void close() {
         try {
             if (results != null) {
