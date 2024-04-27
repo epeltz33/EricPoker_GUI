@@ -37,9 +37,11 @@ public class GameData {
     }
 
     public void updateBank(Player player) {
-        try {
-            String sql = "UPDATE player SET bank = " + player.getBank() + " WHERE player_id = '" + player.getId() + "'";
-            statement.executeUpdate(sql);
+        String sql = "UPDATE player SET bank = ? WHERE player_id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, player.getBank());
+            pstmt.setString(2, player.getId());
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
