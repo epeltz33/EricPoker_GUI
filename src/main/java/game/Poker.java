@@ -7,6 +7,7 @@ import gameobjects.ScoreBoard;
 import gameobjects.Wager;
 import gameoutput.GameData;
 import gameoutput.RandomPlayer;
+import reports.GameReport;
 
 import hand.Hand;
 import helpers.PokerSolver;
@@ -37,6 +38,7 @@ public class Poker {
     private Stage primaryStage;
     private Button btnDeal;
     private Button btnExit;
+    private Button btnReport;
     private GameColors gameColors;
 
     public Poker() {
@@ -49,6 +51,7 @@ public class Poker {
         gameColors = new GameColors(playerArea.getHandResults());
         btnDeal = new Button("Deal");
         btnExit = new Button("Exit");
+        btnReport = new Button("Report");
 
         createHeader();
         createCenterSection();
@@ -78,7 +81,7 @@ public class Poker {
     }
 
     private void createRightSection() {
-        rightSection = new VBox(payoutTable, wager, scoreBoard, btnExit);
+        rightSection = new VBox(payoutTable, wager, scoreBoard, btnExit, btnReport);
     }
 
     private void createLeftSection() {
@@ -100,6 +103,11 @@ public class Poker {
     private void createButtonListeners() {
         btnDeal.setOnAction(event -> startDeal());
         btnExit.setOnAction(event -> exitGame());
+        btnReport.setOnAction(event -> showReport());
+    }
+
+    private void showReport() {
+        new GameReport(player);
     }
 
     private void startDeal() {

@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-5584326,Mickie,2c 9h 3h Td 8c ,High Card T,-200,100
+8143876,BettyBetter,9c Jh 2s 4d 8c ,High Card J,-100,1850

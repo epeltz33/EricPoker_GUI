@@ -61,6 +61,29 @@ public class GameData {
             e.printStackTrace();
         }
     }
+
+    public ResultSet fetchPlayerReport(Player player) {
+        ResultSet results;
+
+        String query = createQuery(player.getId());
+        try (PreparedStatement pstmt = this.connection.prepareStatement(query)) {
+            results = pstmt.executeQuery();
+        } catch (SQLException e) {
+            handleDatabaseError(e);
+            return null;
+        }
+
+        return results;
+    }
+
+    private String createQuery(String id) {
+        final String queryTemplate = "SELECT * FROM game_results WHERE player_id = '%s'";
+        return String.format(queryTemplate, id);
+    }
+
+    private void handleDatabaseError(SQLException e) {
+        System.err.printf("Failed to fetch the player report: %s%n", e.getMessage());
+    }
     public void close() {
         try {
             if (results != null) {

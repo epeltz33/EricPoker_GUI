@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$USER_HOME$/Desktop/tioli_db_create.sql" dialect="MySQL" />
+    <file url="file://$USER_HOME$/Desktop/tiolidata.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
