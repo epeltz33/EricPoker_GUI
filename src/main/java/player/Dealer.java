@@ -4,7 +4,7 @@ import cards.Card;
 import deck.Deck;
 import hand.Hand;
 
-public class Dealer extends Player{
+public class Dealer extends Player {
     private Deck deck;
 
     public Dealer(Deck deck) {
@@ -27,22 +27,16 @@ public class Dealer extends Player{
         tempHand.setCard(index, deck.dealCard(0));
     }
 
-    public boolean reshuffleDeck() {
 
-        //Get the deck's cards and usedCards
-        Card[] cards = deck.getCards();
-        Card[] discardPile = deck.getUsedCards();
 
-        //Now do the math
-        int totalCards = cards.length + discardPile.length;
-        int reshuffleCount = (int)(totalCards * .7);  //After 70% of deck is used
-        if(cards.length < reshuffleCount) {
-            deck.restack();
-            return true;
+        public boolean reshuffleDeck () {
+            if (deck.getCards().length < 10) {
+                deck.restack();
+                return true;
+            }
+            return false;
         }
 
-        return false;
-    }
 
     public void gatherUsedCards(Player player) {
         player.getHand().discardAll(deck);

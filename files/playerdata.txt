@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-4369876,FullHouse,2s 8d 4h 6s 7d ,High Card 8,-200,1700
+8143876,BettyBetter,9c Jh 2s 4d 8c ,High Card J,-100,1850

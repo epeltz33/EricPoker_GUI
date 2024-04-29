@@ -51,6 +51,9 @@ public class Deck {
 
     //Return a single card object and remove from deck
     public Card dealCard(int index) {
+        if (cards.isEmpty()) {
+            restack();
+        }
         return cards.remove(index);
     }
 

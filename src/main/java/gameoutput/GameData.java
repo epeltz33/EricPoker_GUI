@@ -4,6 +4,7 @@ package gameoutput;
 import java.sql.*;
 import player.Player;
 
+
 public class GameData {
     private Connection connection;
     Statement statement;
@@ -24,6 +25,7 @@ public class GameData {
         }
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     public void closeConnection() {
         try {
             if (connection != null) {
@@ -35,23 +37,53 @@ public class GameData {
     }
 
     public void updateBank(Player player) {
-        try {
-            String sql = "UPDATE player SET bank = " + player.getBank() + " WHERE player_id = '" + player.getId() + "'";
-            statement.executeUpdate(sql);
+        String sql = "UPDATE player SET bank = ? WHERE player_id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, player.getBank());
+            pstmt.setString(2, player.getId());
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void insertResults(Player player, int amountWon) {
-        try {
-            String sql = STR."INSERT INTO game_results (game_id, player_id, hand_descr, amount_won, player_bank) VALUES(DEFAULT, '\{player.getId()}', '\{player.getHand().getHandDescr()}', \{amountWon}, \{player.getBank()})";
-            statement.executeUpdate(sql);
+        String sql = "INSERT INTO game_results (game_id, player_id, hand_descr, amount_won, player_bank) VALUES(DEFAULT, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, player.getId());
+            pstmt.setString(2, player.getHand().getHandDescr());
+            pstmt.setInt(3, amountWon);
+            pstmt.setInt(4, player.getBank());
+
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public ResultSet fetchPlayerReport(Player player) {
+        ResultSet results;
+
+        String query = createQuery(player.getId());
+        try (PreparedStatement pstmt = this.connection.prepareStatement(query)) {
+            results = pstmt.executeQuery();
+        } catch (SQLException e) {
+            handleDatabaseError(e);
+            return null;
+        }
+
+        return results;
+    }
+
+    private String createQuery(String id) {
+        final String queryTemplate = "SELECT * FROM game_results WHERE player_id = '%s'";
+        return String.format(queryTemplate, id);
+    }
+
+    private void handleDatabaseError(SQLException e) {
+        System.err.printf("Failed to fetch the player report: %s%n", e.getMessage());
+    }
     public void close() {
         try {
             if (results != null) {
