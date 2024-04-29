@@ -31,7 +31,7 @@ public class GameReport {
 
 	private Player player;
 	private GameData gameData;
-	private TableView<ResultSet> tableView;
+	private TableView<ReportRow> tableView;
 
 	public GameReport(Player player) {
 		this.player = player;
@@ -45,16 +45,24 @@ public class GameReport {
 
 		Label titleLabel = new Label("Game Report for %s".formatted(player.getName()));
 		tableView = new TableView<>();
+
 		TableColumn<ReportRow, Integer> gameIdColumn = new TableColumn<>("Game ID");
 		gameIdColumn.setCellValueFactory(new PropertyValueFactory<>("gameId"));
+
 		TableColumn<ReportRow, String> handDescrColumn = new TableColumn<>("Hand Description");
 		handDescrColumn.setCellValueFactory(new PropertyValueFactory<>("handDescr"));
+
 		TableColumn<ReportRow, Integer> amountWonColumn = new TableColumn<>("Amount Won");
 		amountWonColumn.setCellValueFactory(new PropertyValueFactory<>("amountWon"));
+
 		TableColumn<ReportRow, Integer> playerBankColumn = new TableColumn<>("Player Bank");
 		playerBankColumn.setCellValueFactory(new PropertyValueFactory<>("playerBank"));
+
+		tableView.getColumns().addAll(gameIdColumn, handDescrColumn, amountWonColumn, playerBankColumn);
+
 		Button saveButton = new Button("Save");
 		saveButton.setOnAction(e -> saveReport());
+
 		Button exitButton = new Button("Exit");
 		exitButton.setOnAction(e -> exitReport());
 
@@ -63,17 +71,13 @@ public class GameReport {
 
 	private void saveReport() {
 		try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream("report.dat"))) {
-			tableView.getItems().forEach(resultSet -> {
-				try {
-					outputStream.writeInt(resultSet.getInt("game_id"));
-					outputStream.writeUTF(player.getName());
-					outputStream.writeUTF(resultSet.getString("hand_descr"));
-					outputStream.writeInt(resultSet.getInt("amount_won"));
-					outputStream.writeInt(resultSet.getInt("player_bank"));
-				} catch (SQLException | IOException e) {
-					e.printStackTrace();
-				}
-			});
+			for (ReportRow row : tableView.getItems()) {
+				outputStream.writeInt(row.getGameId());
+				outputStream.writeUTF(player.getName());
+				outputStream.writeUTF(row.getHandDescr());
+				outputStream.writeInt(row.getAmountWon());
+				outputStream.writeInt(row.getPlayerBank());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,10 +96,9 @@ public class GameReport {
 		reportStage.setScene(scene);
 		reportStage.show();
 
-		ResultSet reportData = gameData.fetchPlayerReport(player);
-		tableView.getItems().clear();
+		try (ResultSet reportData = gameData.fetchPlayerReport(player)) {
+			tableView.getItems().clear();
 
-		try {
 			while (reportData.next()) {
 				int gameId = reportData.getInt("game_id");
 				String handDescr = reportData.getString("hand_descr");
@@ -104,11 +107,10 @@ public class GameReport {
 
 				// Create a custom object to represent the row data
 				ReportRow row = new ReportRow(gameId, handDescr, amountWon, playerBank);
-				tableView.getItems().add((ResultSet) row);
+				tableView.getItems().add(row);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-		}
+}

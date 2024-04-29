@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-8143876,BettyBetter,9c Jh 2s 4d 8c ,High Card J,-100,1850
+9765122,Wilma,4s Td As Jc Ac ,Pair As,200,1650
