@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-9765122,Wilma,4s Td As Jc Ac ,Pair As,200,1650
+6987637,FoldEm!,3d Kc 2c 3c Kh ,Two Pair Ks & 3s,200,800

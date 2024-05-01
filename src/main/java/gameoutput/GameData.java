@@ -64,13 +64,17 @@ public class GameData {
 
     public ResultSet fetchPlayerReport(Player player) {
         ResultSet results = null;
+        PreparedStatement pstmt = null;
 
-        String query = createQuery(player.getId());
+
         try {
-            PreparedStatement pstmt = this.connection.prepareStatement(query);
+            String query = createQuery(player.getId());
+            pstmt = this.connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             results = pstmt.executeQuery();
         } catch (SQLException e) {
             handleDatabaseError(e);
+        }finally {
+
         }
 
         return results;

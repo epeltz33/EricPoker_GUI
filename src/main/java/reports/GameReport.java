@@ -90,16 +90,19 @@ public class GameReport {
 	}
 
 	// This method will make report show
+	// This method will make report show
 	private void showScene() {
 		Scene scene = new Scene(reportPane, windowWidth, windowHeight);
 		reportStage.setTitle("Game Report for %s".formatted(player.getName()));
 		reportStage.setScene(scene);
 		reportStage.show();
 
-		try (ResultSet reportData = gameData.fetchPlayerReport(player)) {
+		ResultSet reportData = null;
+		try {
+			reportData = gameData.fetchPlayerReport(player);
 			tableView.getItems().clear();
 
-			while (reportData.next()) {
+			while (reportData != null && reportData.next()) {
 				int gameId = reportData.getInt("game_id");
 				String handDescr = reportData.getString("hand_descr");
 				int amountWon = reportData.getInt("amount_won");
@@ -111,6 +114,15 @@ public class GameReport {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			// Close ResultSet here if no longer needed beyond this point
+			if (reportData != null) {
+				try {
+					reportData.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
