@@ -1,6 +1,6 @@
 package gameoutput;
 
-
+ 
 import player.Player;
 
 import java.io.*;

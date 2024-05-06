@@ -1,1 +1,1 @@
-Poker Project for learning Javafx!
+Poker Project for COMP 271!
