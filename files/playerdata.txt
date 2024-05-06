@@ -1,2 +1,2 @@
 Player ID, Player Name, Hand, Hand Descr, Win Amount, Bank
-4369876,FullHouse,6d 4s Td Qs 7s ,High Card Q,-200,1500
+5584326,Mickie,6h Tc 9d Kh 6d ,Pair 6s,-300,1900

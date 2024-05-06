@@ -40,7 +40,7 @@ public class GameReport {
 		reportPane.setFillWidth(true);
 		reportPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
-		Label titleLabel = new Label("Game Report for %s".formatted(player.getName()));
+		Label titleLabel = new Label(String.format("Game Report for %s", player.getName()));
 		tableView = new TableView<>();
 
 		TableColumn<ReportRow, Integer> gameIdColumn = new TableColumn<>("Game ID");
@@ -105,7 +105,7 @@ public class GameReport {
 		double windowHeight = screenHeight * 0.6;
 
 		Scene scene = new Scene(reportPane, windowWidth, windowHeight);
-		reportStage.setTitle("Game Report for %s".formatted(player.getName()));
+		reportStage.setTitle(String.format("Game Report for %s", player.getName()));
 		reportStage.setScene(scene);
 		reportStage.show();
 
